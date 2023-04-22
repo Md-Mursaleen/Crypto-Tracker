@@ -31,7 +31,7 @@ const AddAssetScreen = () => {
         const jsonData = JSON.stringify(newAssets);
         await AsyncStorage.setItem("@portfolio_crypto", jsonData);
         setAssetsinStore(newAssets);
-        navigation.goBack();
+        navigation.goBack("Portfolio");
     };
     const fetchCoins = async () => {
         if (loading) {

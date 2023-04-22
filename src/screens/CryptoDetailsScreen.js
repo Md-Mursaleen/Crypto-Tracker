@@ -12,6 +12,7 @@ import { useWatchlist } from "../../src/contexts/WatchlistContext";
 import CryptofilterDetail from "../components/CryptofilterDetail";
 
 const CryptoDetailsScreen = ({ route }) => {
+    const [showingCandleChart, setShowingCandleChart] = useState(false);
     const { cryptoId, storeWatchlistData, removeWatchlistData } = useWatchlist();
     const { cryptoid } = route.params;
     const [cryptoCoin, setCryptoCoin] = useState(null);
@@ -87,6 +88,14 @@ const CryptoDetailsScreen = ({ route }) => {
         fetchChartData(value);
         fetchCandleChartData(value);
     };
+    const showingLineChart = () => {
+        setCandleChartVisible(false)
+        setShowingCandleChart(false);
+    };
+    const showingCandleStickChart = () => {
+        setCandleChartVisible(true)
+        setShowingCandleChart(true);
+    };
     const filterValues = [
         {
             day: "1",
@@ -150,7 +159,7 @@ const CryptoDetailsScreen = ({ route }) => {
                     {filterValues.map((data, index) => (
                         <CryptofilterDetail key={index} day={data.day} value={data.value} selectedText={selectedText} setSelectedText={onChangeValue} />
                     ))}
-                    {candleChartVisible ? (<MaterialIcons name="show-chart" size={24} color="#16c784" onPress={() => setCandleChartVisible(false)} />) : (<MaterialIcons name="waterfall-chart" size={24} color="#16c784" onPress={() => setCandleChartVisible(true)} />)}
+                    {candleChartVisible ? (<MaterialIcons name="show-chart" size={24} color="#16c784" onPress={() => showingLineChart()} />) : (<MaterialIcons name="waterfall-chart" size={24} color="#16c784" onPress={() => showingCandleStickChart()} />)}
                 </View>
                 {candleChartVisible ? (
                     <CandlestickChart.Provider data={candlechartData.map(([timestamp, open, high, low, close]) => ({ timestamp, open, high, low, close }))}>
@@ -193,20 +202,22 @@ const CryptoDetailsScreen = ({ route }) => {
                         </LineChart.CursorCrosshair>
                     </LineChart>
                 )}
-                <View style={{ marginTop: 50, flexDirection: "row" }}>
-                    <View style={styles.inputContainer}>
-                        <Text style={{ color: "grey", alignSelf: "center" }}>{symbol.toUpperCase()}</Text>
-                        <View style={styles.inputFieldContainer}>
-                            <TextInput style={styles.inputField} value={cryptoValue} keyboardType="numeric" onChangeText={changingCryptoValue} />
+                {!showingCandleChart && (
+                    <View style={{ marginTop: 50, flexDirection: "row" }}>
+                        <View style={styles.inputContainer}>
+                            <Text style={{ color: "grey", alignSelf: "center" }}>{symbol.toUpperCase()}</Text>
+                            <View style={styles.inputFieldContainer}>
+                                <TextInput style={styles.inputField} value={cryptoValue} keyboardType="numeric" onChangeText={changingCryptoValue} />
+                            </View>
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <Text style={{ color: "grey", alignSelf: "center" }}>USD</Text>
+                            <View style={styles.inputFieldContainer}>
+                                <TextInput style={styles.inputField} value={usdValue} keyboardType="numeric" onChangeText={changingUsdValue} />
+                            </View>
                         </View>
                     </View>
-                    <View style={styles.inputContainer}>
-                        <Text style={{ color: "grey", alignSelf: "center" }}>USD</Text>
-                        <View style={styles.inputFieldContainer}>
-                            <TextInput style={styles.inputField} value={usdValue} keyboardType="numeric" onChangeText={changingUsdValue} />
-                        </View>
-                    </View>
-                </View>
+                )}
             </LineChart.Provider>
         </KeyboardAvoidingView>
     );

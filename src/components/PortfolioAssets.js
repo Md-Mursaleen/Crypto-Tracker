@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         color: "white"
     },
     percentageChangeContainer: {
-        paddingHorizontal: 5,
+        paddingHorizontal: 5.5,
         paddingVertical: 10,
         flexDirection: "row",
         alignItems: "center",

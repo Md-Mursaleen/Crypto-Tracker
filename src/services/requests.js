@@ -21,7 +21,7 @@ export const getChartData = async (cryptoid, selectedValue) => {
 
 export const getCryptoCoinData = async (pagenumber = 1) => {
     try {
-        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=${pagenumber}&sparkline=false&price_change_percentage=24h&locale=en`);
+        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${pagenumber}&sparkline=false&price_change_percentage=24h&locale=en`);
         return response.data;
     } catch (e) {
         console.log(e);

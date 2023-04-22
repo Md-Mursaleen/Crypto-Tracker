@@ -44,7 +44,7 @@ const CryptoItem = ({ cryptodata }) => {
                     <View style={[styles.positionContainer, market_cap_rank >= 100 && { width: 39, height: 30 }]}>
                         <Text style={styles.position}>#{market_cap_rank}</Text>
                     </View>
-                    <Text style={styles.text}>{symbol.toUpperCase()}</Text>
+                    <Text style={styles.text}>{symbol?.toUpperCase()}</Text>
                     <View style={[styles.pricePercentageContainer, { backgroundColor: pricePercentageBackground }]}>
                         <AntDesign name={price_change_percentage_24h > 0 ? "caretup" : "caretdown"} color={pricePercentage} style={
                             {

@@ -76,13 +76,14 @@ const ProfileScreen = () => {
             <View style={
                 {
                     marginLeft: 15,
-                    marginTop: 30
+                    marginTop: 25
                 }
             }>
                 <Text style={
                     {
                         marginTop: 20,
-                        fontSize: 20,
+                        fontSize: 22,
+                        fontWeight: "500",
                         color: "white"
                     }
                 }>Your Assets</Text>
@@ -91,15 +92,14 @@ const ProfileScreen = () => {
                         marginTop: 20
                     }
                 }>
-                    <Pressable style={
+                    <View style={
                         {
                             flexDirection: "row",
                             alignItems: "center"
                         }
-                    }
-                        onPress={() => navigation.navigate("Portfolio")}>
+                    }>
                         <View>
-                            <FontAwesome name="bitcoin" size={25} color="white" />
+                            <FontAwesome name="bitcoin" size={30} color="white" />
                         </View>
                         <View style={
                             {
@@ -109,34 +109,34 @@ const ProfileScreen = () => {
                             <Text style={
                                 {
                                     fontSize: 15,
+                                    fontWeight: "500",
                                     color: "white"
                                 }
                             }>Current Assets</Text>
                             <Text style={
                                 {
                                     marginTop: 15,
-                                    fontSize: 13,
+                                    fontSize: 14,
                                     color: "grey"
                                 }
-                            }>Add Asset</Text>
+                            } onPress={() => navigation.navigate("Asset")}>Add Asset</Text>
                         </View>
-                    </Pressable>
+                    </View>
                     <View style={{
                         marginTop: 20,
                         marginRight: 15,
                         borderWidth: StyleSheet.hairlineWidth,
                         borderColor: "#282828"
                     }} />
-                    <Pressable style={
+                    <View style={
                         {
                             marginTop: 18,
                             flexDirection: "row",
                             alignItems: "center"
                         }
-                    }
-                        onPress={() => navigation.navigate("Watchlist")}>
+                    }>
                         <View>
-                            <FontAwesome5 name="star" size={23} color="white" />
+                            <FontAwesome5 name="star" size={25} color="white" />
                         </View>
                         <View style={
                             {
@@ -146,18 +146,19 @@ const ProfileScreen = () => {
                             <Text style={
                                 {
                                     fontSize: 15,
+                                    fontWeight: "500",
                                     color: "white"
                                 }
                             }>Watchlist Assets</Text>
                             <Text style={
                                 {
                                     marginTop: 15,
-                                    fontSize: 13,
+                                    fontSize: 14,
                                     color: "grey"
                                 }
-                            }>Add Watchlist</Text>
+                            } onPress={() => navigation.navigate("Crypto Coins")} >Add Watchlist</Text>
                         </View>
-                    </Pressable>
+                    </View>
                 </View>
             </View>
             <View style={

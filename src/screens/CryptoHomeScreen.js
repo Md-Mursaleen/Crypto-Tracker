@@ -1,4 +1,4 @@
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
 import React, { useState, useEffect } from "react";
 import CryptoItem from "../components/CryptoItem";
 import { getCryptoCoinData } from "../services/requests";
@@ -12,6 +12,15 @@ const CryptoHomeScreen = () => {
         }
         setLoading(true);
         const fetchedCryptoCoin = await getCryptoCoinData(pagenumber);
+        setCryptoCoin(fetchedCryptoCoin);
+        setLoading(false);
+    };
+    const refetchCryptoCoin = async () => {
+        if (loading) {
+            return;
+        }
+        setLoading(true);
+        const fetchedCryptoCoin = await getCryptoCoinData();
         setCryptoCoin(fetchedCryptoCoin);
         setLoading(false);
     };
@@ -29,7 +38,10 @@ const CryptoHomeScreen = () => {
             </View>
             <FlatList data={cryptoCoin} renderItem={({ item }) => (
                 <CryptoItem cryptodata={item} />
-            )} />
+            )}
+                refreshControl={
+                    <RefreshControl refreshing={loading} tintColor="white" onRefresh={refetchCryptoCoin} />
+                } />
         </View>
     );
 }
