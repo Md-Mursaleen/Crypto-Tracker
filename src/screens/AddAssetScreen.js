@@ -62,7 +62,7 @@ const AddAssetScreen = () => {
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={80} behavior={Platform.OS === "ios" ? "padding" : "height"} >
             <View style={styles.headerContainer}>
-                <Ionicons name="chevron-back-sharp" size={25} color="white" onPress={() => navigation.goBack()} style={{ marginLeft: 10 }} />
+                <Ionicons name="chevron-back-sharp" size={25} color="#bdc5cc" onPress={() => navigation.goBack()} style={{ marginLeft: 10 }} />
                 <Text style={styles.headerText}>Add New Asset</Text>
             </View>
             <SearchableDropdown containerStyle={styles.dropdownContainer}
@@ -72,7 +72,7 @@ const AddAssetScreen = () => {
                 onItemSelect={(item) => setSelectedCoin(item.id)}
                 resetValue={false}
                 placeholder={selectedCoin || "Select a crypto coin"}
-                placeholderTextColor="white"
+                placeholderTextColor="grey"
                 textInputProps={{
                     underlineColorAndroid: "transparent",
                     style: styles.textInputStyle
@@ -80,20 +80,16 @@ const AddAssetScreen = () => {
             {selectedCoinData && (
                 <>
                     <View style={styles.quantityContainer}>
-                        <View style={
-                            {
-                                flexDirection: "row"
-                            }
-                        }>
+                        <View style={{ flexDirection: "row" }}>
                             <TextInput value={assetQuantity} placeholder="0" placeholderTextColor="#1e1e1e"
                                 keyboardType="numeric"
-                                style={{ fontSize: 90, color: "white" }}
+                                style={{ fontSize: 70, color: "white" }}
                                 onChangeText={setAssetQuantity} />
                             <Text style={styles.symbolStyle}>{selectedCoinData?.symbol.toUpperCase()}</Text>
                         </View>
                         <Text style={styles.priceStyle}>{selectedCoinData?.market_data?.current_price?.usd} per coin</Text>
                     </View>
-                    <Pressable style={[styles.buttonContainer, { backgroundColor: assetQuantity === "" ? "#303030" : "#4169e1" }]}
+                    <Pressable style={[styles.buttonContainer, { backgroundColor: assetQuantity === "" ? "#1e1e1e" : "#4169e1" }]}
                         onPress={addnewAsset} disabled={assetQuantity === ""} >
                         <Text style={[styles.buttonText, { color: assetQuantity === "" ? "grey" : "white" }]}>Add New Asset</Text>
                     </Pressable>
@@ -112,29 +108,30 @@ const styles = StyleSheet.create({
     },
     headerText: {
         marginLeft: "28%",
-        fontSize: 16,
-        fontWeight: "bold",
-        color: "white"
+        fontSize: 16.5,
+        fontWeight: "600",
+        color: "#bdc5cc"
     },
     dropdownContainer: {
+        paddingBottom: 50,
         paddingHorizontal: 10,
         paddingVertical: 20,
         width: "100%"
     },
     dropdownitemContainer: {
-        padding: 10,
-        marginTop: 2,
-        backgroundColor: "#1e1e1e",
-        borderWidth: 1,
-        borderColor: "#444444",
+        padding: 16,
+        marginTop: 10,
+        backgroundColor: "#0f1114",
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "#bdc5cc",
         borderRadius: 5
     },
     textInputStyle: {
         padding: 12,
-        backgroundColor: "#1e1e1e",
+        backgroundColor: "#0f1114",
         color: "white",
         borderWidth: 1.5,
-        borderColor: "#444444",
+        borderColor: "#bdc5cc",
         borderRadius: 5
     },
     quantityContainer: {
@@ -143,7 +140,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     symbolStyle: {
-        marginTop: 25,
+        marginTop: 15,
         marginLeft: 5,
         fontSize: 20,
         fontWeight: "700",

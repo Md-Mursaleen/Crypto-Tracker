@@ -12,7 +12,7 @@ const RootNavigation = () => {
         <NavigationContainer theme={
             {
                 colors: {
-                    background: "#121212"
+                    background: "#000102"
                 }
             }
         }>

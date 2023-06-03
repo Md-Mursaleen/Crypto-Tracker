@@ -9,6 +9,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { portfolioassetsinstore } from "../atoms/PortfolioAssets";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import LottieView from "lottie-react-native";
 
 const PortfolioAssets = () => {
     const assets = useRecoilValue(portfolioassets);
@@ -37,42 +38,66 @@ const PortfolioAssets = () => {
                 onPress={() => deletingAsset(data)}>
                 <FontAwesome name="trash-o" size={24} color="white" />
             </Pressable>
-        )
+        );
     };
     return (
-        <SwipeListView data={assets}
-            renderItem={({ item }) => <PortfolioAssetItem assetitem={item} />}
-            rightOpenValue={-75}
-            disableRightSwipe
-            keyExtractor={({ id }, index) => `${id}${index}`}
-            renderHiddenItem={(data) => deletebutton(data)}
-            ListHeaderComponent={
-                <>
-                    <View style={styles.balanceContainer}>
-                        <View>
-                            <Text style={styles.balanceText}>Current Balance</Text>
-                            <Text style={styles.balanceValueText}>${currentBalance().toFixed(2)}</Text>
-                            <Text style={{ fontSize: 16, fontWeight: "700", color: currentValue() >= 0 ? "#16c784" : "#ea3943" }}>${currentValue()} (All Time)</Text>
-                        </View>
-                        <View style={[styles.percentageChangeContainer, { backgroundColor: currentValue() >= 0 ? "#16c784" : "#ea3943" }]}>
-                            <AntDesign name={currentValue() >= 0 ? "caretup" : "caretdown"} color="white" style={
-                                {
-                                    marginRight: 5,
-                                    alignSelf: "center"
-                                }
-                            } />
-                            <Text style={styles.percentageChangeText}>{currentpercentage()}%</Text>
-                        </View>
-                    </View>
-                    <Text style={styles.assetsText}>Your Assets</Text>
-                </>
-            }
-            ListFooterComponent={
-                <Pressable style={styles.buttonContainer}
+        assets?.length === 0 ? (
+            <>
+                <Text style={styles.textStyle}>Portfolio</Text>
+                <LottieView source={require("../../assets/animations/searching-animation.json")}
+                    autoPlay
+                    speed={2.0}
+                    loop={true}
+                    style={styles.lottieStyle} />
+                <View>
+                    <Text style={styles.headerTitle}>Your portfolio is empty</Text>
+                    <Text style={[styles.headerSubTitle, { marginTop: 20 }]}>Add the first asset by tapping on the</Text>
+                    <Text style={[styles.headerSubTitle, { marginTop: 5 }]}>button below.</Text>
+                </View>
+                < Pressable style={[styles.buttonContainer, assets.length === 0 && { marginTop: 180 }]}
                     onPress={() => navigation.navigate("Asset")}>
                     <Text style={styles.buttonText}>Add New Asset</Text>
-                </Pressable>
-            } />
+                </Pressable >
+            </>
+        ) : (
+            <SwipeListView data={assets}
+                renderItem={({ item }) => <PortfolioAssetItem assetitem={item} />}
+                rightOpenValue={-75}
+                disableRightSwipe
+                keyExtractor={({ id }, index) => `${id}${index}`}
+                renderHiddenItem={(data) => deletebutton(data)}
+                ListHeaderComponent={
+                    <>
+                        <Text style={styles.textStyle}>Portfolio</Text>
+                        <View style={styles.balanceContainer}>
+                            <View>
+                                <Text style={styles.balanceText}>Current Balance</Text>
+                                <Text style={styles.balanceValueText}>${currentBalance()?.toFixed(2)}</Text>
+                                <Text style={[styles.changePriceText, { color: currentValue() >= 0 ? "#16c784" : "#ea3943" }]}>${currentValue()} (24h)</Text>
+                            </View>
+                            <View style={[styles.percentageChangeContainer, { backgroundColor: currentValue() >= 0 ? "#16c784" : "#ea3943" }]}>
+                                <AntDesign name={currentValue() >= 0 ? "caretup" : "caretdown"} color="white" style={styles.iconContainer} />
+                                <Text style={styles.percentageChangeText}>{currentpercentage()}%</Text>
+                            </View>
+                        </View>
+                        <Text style={styles.assetsText}>Your Assets</Text>
+                        <View style={styles.headerContainer}>
+                            <Text style={[styles.headerTextStyle, { fontSize: 14 }]}>Asset</Text>
+                            <Text style={[styles.headerTextStyle, { marginLeft: 50 }]}>24H Price</Text>
+                            <View style={styles.headerItemContainer}>
+                                <Text style={styles.headerTextStyle}>Holdings</Text>
+                                <AntDesign name="caretdown" color="#5e80fc" size={12} />
+                            </View>
+                        </View>
+                    </>
+                }
+                ListFooterComponent={
+                    < Pressable style={styles.buttonContainer}
+                        onPress={() => navigation.navigate("Asset")}>
+                        <Text style={styles.buttonText}>Add New Asset</Text>
+                    </Pressable >
+                } />
+        )
     );
 }
 
@@ -80,7 +105,7 @@ export default PortfolioAssets;
 
 const styles = StyleSheet.create({
     balanceContainer: {
-        marginTop: 10,
+        marginTop: 15,
         marginBottom: 5,
         marginHorizontal: 10,
         flexDirection: "row",
@@ -89,22 +114,22 @@ const styles = StyleSheet.create({
     },
     balanceText: {
         marginLeft: 4,
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "600",
-        color: "white"
+        color: "grey"
     },
     balanceValueText: {
-        fontSize: 38,
+        marginTop: 5,
+        fontSize: 28.5,
         fontWeight: "700",
         color: "white"
     },
     percentageChangeContainer: {
-        paddingHorizontal: 5.5,
-        paddingVertical: 10,
+        paddingHorizontal: 5,
+        paddingVertical: 8,
         flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#16c784",
-        borderRadius: 5
+        borderRadius: 10
     },
     percentageChangeText: {
         fontSize: 17,
@@ -114,7 +139,7 @@ const styles = StyleSheet.create({
     assetsText: {
         paddingHorizontal: 10,
         paddingVertical: 20,
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: "700",
         color: "white"
     },
@@ -127,7 +152,7 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     buttonText: {
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: "600",
         color: "white"
     },
@@ -138,5 +163,55 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
         justifyContent: "center",
         backgroundColor: "#ea3943"
+    },
+    changePriceText: {
+        marginTop: 3,
+        fontSize: 14.5,
+        fontWeight: "700"
+    },
+    iconContainer: {
+        marginRight: 5,
+        alignSelf: "center"
+    },
+    headerContainer: {
+        marginBottom: 10,
+        marginHorizontal: 20,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    headerItemContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    headerTextStyle: {
+        marginRight: 5,
+        fontSize: 13,
+        fontWeight: "500",
+        color: "#bdc5cc"
+    },
+    textStyle: {
+        marginLeft: 15,
+        fontSize: 25.5,
+        fontWeight: "bold",
+        color: "white"
+    },
+    lottieStyle: {
+        marginTop: 60,
+        height: 185,
+        alignSelf: "center"
+    },
+    headerTitle: {
+        marginTop: 80,
+        fontSize: 27,
+        fontWeight: "bold",
+        alignSelf: "center",
+        color: "white"
+    },
+    headerSubTitle: {
+        fontSize: 16.5,
+        fontWeight: "500",
+        alignSelf: "center",
+        color: "#8694a1"
     }
 });

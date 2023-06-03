@@ -12,7 +12,7 @@ import { useWatchlist } from "../../src/contexts/WatchlistContext";
 import CryptofilterDetail from "../components/CryptofilterDetail";
 
 const CryptoDetailsScreen = ({ route }) => {
-    const [showingCandleChart, setShowingCandleChart] = useState(false);
+    const [showingCandleChart, setShowingCandleChart] = useState(true);
     const { cryptoId, storeWatchlistData, removeWatchlistData } = useWatchlist();
     const { cryptoid } = route.params;
     const [cryptoCoin, setCryptoCoin] = useState(null);
@@ -24,7 +24,7 @@ const CryptoDetailsScreen = ({ route }) => {
     const [cryptoValue, setCryptoValue] = useState("1");
     const [usdValue, setUsdValue] = useState("");
     const [selectedText, setSelectedText] = useState("1");
-    const [candleChartVisible, setCandleChartVisible] = useState(false);
+    const [candleChartVisible, setCandleChartVisible] = useState(true);
     const fetchData = async () => {
         setLoading(true);
         const fetchedData = await getCryptoData(cryptoid);
@@ -72,7 +72,7 @@ const CryptoDetailsScreen = ({ route }) => {
     const changingUsdValue = (value) => {
         setUsdValue(value);
         const usdAmount = parseFloat(value.replace(",", ".")) || 0;
-        setCryptoValue((usdAmount / usd).toString());
+        setCryptoValue((usdAmount / usd).toFixed(3).toString());
     };
     const cryptoinWatchlist = () =>
         cryptoId.some((cryptoIdValue) => cryptoIdValue === id);
@@ -122,36 +122,28 @@ const CryptoDetailsScreen = ({ route }) => {
         <KeyboardAvoidingView style={styles.container}>
             <LineChart.Provider data={prices.map(([timestamp, value]) => ({ timestamp, value }))}>
                 <View style={styles.headerContainer}>
-                    <Ionicons name="chevron-back-sharp" size={25} color="white" onPress={() => navigation.goBack()} />
+                    <Ionicons name="chevron-back-sharp" size={25} color="#677686" onPress={() => navigation.goBack()} />
                     <View style={styles.infoContainer}>
-                        <Image source={{ uri: image.small }} style={
-                            {
-                                width: 25,
-                                height: 25
-                            }
-                        } />
+                        <Image source={{ uri: image.small }} style={styles.imageStyle} />
                         <Text style={styles.text}>{symbol.toUpperCase()}</Text>
-                        <View style={[styles.positionContainer, market_cap_rank >= 100 && { width: 39, height: 30 }]}>
-                            <Text style={styles.positionText}>#{market_cap_rank}</Text>
-                        </View>
                     </View>
-                    <FontAwesome name={cryptoinWatchlist() ? "star" : "star-o"} size={25} color={cryptoinWatchlist() ? "#FFBF00" : "white"}
+                    <FontAwesome name={cryptoinWatchlist() ? "star" : "star-o"} size={25} color={cryptoinWatchlist() ? "#ffbf00" : "#677686"}
                         onPress={() => checkWatchlistData()} />
                 </View>
                 <View style={styles.cryptoInfoContainer}>
                     <View>
-                        <Text style={styles.title}>{name}</Text>
+                        <View style={styles.titleContainer}>
+                            <Text style={styles.title}>{name}</Text>
+                            <View style={[styles.positionContainer, market_cap_rank >= 10 && { width: 26 }, market_cap_rank >= 100 && { width: 36 }]}>
+                                <Text style={styles.positionText}>#{market_cap_rank}</Text>
+                            </View>
+                        </View>
                         <LineChart.PriceText
                             format={formatPrice}
                             style={styles.priceText} />
                     </View>
                     <View style={[styles.percentageContainer, { backgroundColor: pricePercentage }]}>
-                        <AntDesign name={price_change_percentage_24h > 0 ? "caretup" : "caretdown"} color="white" style={
-                            {
-                                marginRight: 5,
-                                alignSelf: "center"
-                            }
-                        } />
+                        <AntDesign name={price_change_percentage_24h > 0 ? "caretup" : "caretdown"} color="white" size={12} style={styles.iconContainer} />
                         <Text style={styles.percentageText}>{price_change_percentage_24h?.toFixed(2)}%</Text>
                     </View>
                 </View>
@@ -159,11 +151,11 @@ const CryptoDetailsScreen = ({ route }) => {
                     {filterValues.map((data, index) => (
                         <CryptofilterDetail key={index} day={data.day} value={data.value} selectedText={selectedText} setSelectedText={onChangeValue} />
                     ))}
-                    {candleChartVisible ? (<MaterialIcons name="show-chart" size={24} color="#16c784" onPress={() => showingLineChart()} />) : (<MaterialIcons name="waterfall-chart" size={24} color="#16c784" onPress={() => showingCandleStickChart()} />)}
+                    {!candleChartVisible ? (<MaterialIcons name="waterfall-chart" size={24} color="#16c784" onPress={() => showingCandleStickChart()} />) : (<MaterialIcons name="show-chart" size={24} color="#16c784" onPress={() => showingLineChart()} />)}
                 </View>
                 {candleChartVisible ? (
                     <CandlestickChart.Provider data={candlechartData.map(([timestamp, open, high, low, close]) => ({ timestamp, open, high, low, close }))}>
-                        <CandlestickChart height={SIZE / 2} width={SIZE} >
+                        <CandlestickChart height={SIZE / 1.5} width={SIZE} >
                             <CandlestickChart.Candles />
                             <CandlestickChart.Crosshair>
                                 <CandlestickChart.Tooltip />
@@ -203,17 +195,20 @@ const CryptoDetailsScreen = ({ route }) => {
                     </LineChart>
                 )}
                 {!showingCandleChart && (
-                    <View style={{ marginTop: 50, flexDirection: "row" }}>
-                        <View style={styles.inputContainer}>
-                            <Text style={{ color: "grey", alignSelf: "center" }}>{symbol.toUpperCase()}</Text>
-                            <View style={styles.inputFieldContainer}>
-                                <TextInput style={styles.inputField} value={cryptoValue} keyboardType="numeric" onChangeText={changingCryptoValue} />
+                    <View style={{ marginTop: 60 }}>
+                        <Text style={styles.converterText}>Converter</Text>
+                        <View style={styles.converterContainer}>
+                            <View style={styles.inputContainer}>
+                                <Text style={{ color: "grey", alignSelf: "center" }}>{symbol.toUpperCase()}</Text>
+                                <View style={styles.inputFieldContainer}>
+                                    <TextInput style={styles.inputField} value={cryptoValue} keyboardType="numeric" onChangeText={changingCryptoValue} />
+                                </View>
                             </View>
-                        </View>
-                        <View style={styles.inputContainer}>
-                            <Text style={{ color: "grey", alignSelf: "center" }}>USD</Text>
-                            <View style={styles.inputFieldContainer}>
-                                <TextInput style={styles.inputField} value={usdValue} keyboardType="numeric" onChangeText={changingUsdValue} />
+                            <View style={styles.inputContainer}>
+                                <Text style={{ color: "grey", alignSelf: "center" }}>USD</Text>
+                                <View style={styles.inputFieldContainer}>
+                                    <TextInput style={styles.inputField} value={usdValue} keyboardType="numeric" onChangeText={changingUsdValue} />
+                                </View>
                             </View>
                         </View>
                     </View>
@@ -237,7 +232,7 @@ const styles = StyleSheet.create({
     text: {
         marginHorizontal: 5,
         fontSize: 17,
-        fontWeight: "bold",
+        fontWeight: "600",
         color: "white"
     },
     infoContainer: {
@@ -245,42 +240,51 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     positionText: {
-        fontSize: 15,
+        fontSize: 13,
         fontWeight: "bold",
         color: "white"
     },
     positionContainer: {
-        width: 30,
-        height: 26,
+        width: 22,
+        height: 20,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#585858",
+        backgroundColor: "#252b30",
         borderRadius: 5
     },
     title: {
+        marginRight: 10,
         fontSize: 15,
+        fontWeight: "600",
         color: "white"
     },
+    titleContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
     priceText: {
-        fontSize: 30,
+        fontSize: 28,
         fontWeight: "600",
         color: "white"
     },
     cryptoInfoContainer: {
+        marginTop: 5,
         paddingVertical: 15,
+        marginHorizontal: 8,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
     },
     percentageContainer: {
         paddingHorizontal: 5,
-        paddingVertical: 10,
+        paddingVertical: 8,
         flexDirection: "row",
         alignItems: "center",
-        borderRadius: 5
+        borderRadius: 10
     },
     percentageText: {
         fontSize: 16,
+        fontWeight: "bold",
         color: "white"
     },
     inputContainer: {
@@ -292,11 +296,9 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 40,
         margin: 12,
-        padding: 10,
+        padding: 5,
         fontSize: 16,
-        color: "white",
-        borderBottomColor: "white",
-        borderBottomWidth: 1
+        color: "white"
     },
     filterContainer: {
         marginBottom: 20,
@@ -304,11 +306,11 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         flexDirection: "row",
         justifyContent: "space-around",
-        backgroundColor: "#2B2B2B",
+        backgroundColor: "#0f1114",
         borderRadius: 5
     },
     candlechartContainer: {
-        marginTop: 20,
+        marginTop: 30,
         marginHorizontal: 10,
         flexDirection: "row",
         justifyContent: "space-between"
@@ -324,8 +326,28 @@ const styles = StyleSheet.create({
     inputFieldContainer: {
         marginLeft: 10,
         width: 130,
-        height: 60,
-        backgroundColor: "#1e1e1e",
+        height: 55,
+        backgroundColor: "#0f1114",
+        alignItems: "center",
         borderRadius: 5
+    },
+    imageStyle: {
+        width: 25,
+        height: 25
+    },
+    iconContainer: {
+        marginRight: 5,
+        alignSelf: "center"
+    },
+    converterText: {
+        marginLeft: 8,
+        marginBottom: 20,
+        fontSize: 22,
+        fontWeight: "500",
+        color: "white"
+    },
+    converterContainer: {
+        marginLeft: 8,
+        flexDirection: "row"
     }
 });

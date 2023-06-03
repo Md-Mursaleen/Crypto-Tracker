@@ -1,9 +1,8 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import Feather from "react-native-vector-icons/Feather";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 
@@ -14,175 +13,46 @@ const ProfileScreen = () => {
         Auth.currentAuthenticatedUser().then((res) => setUsername(res.attributes.name));
     }, []);
     return (
-        <View style={
-            {
-                flex: 1,
-                marginTop: 10
-            }
-        }>
-            <Pressable style={
-                {
-                    marginLeft: 15
-                }
-            }
-                onPress={() => navigation.goBack()}>
-                <Feather name="arrow-left" size={23} color="white" />
-            </Pressable>
-            <Text style={
-                {
-                    marginLeft: 15,
-                    fontSize: 38,
-                    fontWeight: "400",
-                    color: "white"
-                }
-            }>Profile</Text>
-            <View style={
-                {
-                    width: 75,
-                    height: 75,
-                    marginTop: 20,
-                    backgroundColor: "#eee",
-                    alignItems: "center",
-                    alignSelf: "center",
-                    justifyContent: "center",
-                    borderRadius: 50
-                }
-            }>
-                <View style={
-                    {
-                        width: 65,
-                        height: 65,
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor: "#181818",
-                        borderRadius: 50
-                    }
-                }
-                ><SimpleLineIcons name="user" size={30} color="white" /></View>
+        <View style={styles.container}>
+            <Text style={styles.profileText}>Profile</Text>
+            <View style={styles.profileIconContainer}>
+                <View style={styles.profileIconSubContainer}>
+                    <FontAwesome5 name="user" color="#bdc5cc" size={28} />
+                </View>
             </View>
-            <View style={
-                {
-                    marginTop: 10
-                }
-            }>
-                <Text style={
-                    {
-                        fontSize: 18,
-                        textAlign: "center",
-                        color: "white"
-                    }
-                }>{username}</Text>
+            <View style={{ marginTop: 10 }}>
+                <Text style={styles.usernameText}>{username}</Text>
             </View>
-            <View style={
-                {
-                    marginLeft: 15,
-                    marginTop: 25
-                }
-            }>
-                <Text style={
-                    {
-                        marginTop: 20,
-                        fontSize: 22,
-                        fontWeight: "500",
-                        color: "white"
-                    }
-                }>Your Assets</Text>
-                <View style={
-                    {
-                        marginTop: 20
-                    }
-                }>
-                    <View style={
-                        {
-                            flexDirection: "row",
-                            alignItems: "center"
-                        }
-                    }>
+            <View style={styles.middleContainer}>
+                <Text style={styles.assetsText}>Your Assets</Text>
+                <View style={{ marginTop: 20 }}>
+                    <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <View>
-                            <FontAwesome name="bitcoin" size={30} color="white" />
+                            <MaterialIcons name="attach-money" size={32} color="white" />
                         </View>
-                        <View style={
-                            {
-                                marginLeft: 20
-                            }
-                        }>
-                            <Text style={
-                                {
-                                    fontSize: 15,
-                                    fontWeight: "500",
-                                    color: "white"
-                                }
-                            }>Current Assets</Text>
-                            <Text style={
-                                {
-                                    marginTop: 15,
-                                    fontSize: 14,
-                                    color: "grey"
-                                }
-                            } onPress={() => navigation.navigate("Asset")}>Add Asset</Text>
+                        <View style={{ marginLeft: 15 }}>
+                            <Text style={styles.middleContainerText} onPress={() => navigation.navigate("Portfolio")}>Current Assets</Text>
+                            <Text style={styles.middleContainerSubText} onPress={() => navigation.navigate("Asset")}>Add Asset</Text>
                         </View>
                     </View>
-                    <View style={{
-                        marginTop: 20,
-                        marginRight: 15,
-                        borderWidth: StyleSheet.hairlineWidth,
-                        borderColor: "#282828"
-                    }} />
-                    <View style={
-                        {
-                            marginTop: 18,
-                            flexDirection: "row",
-                            alignItems: "center"
-                        }
-                    }>
+                    <View style={styles.borderStyle} />
+                    <View style={styles.middleContainerBottomView}>
                         <View>
-                            <FontAwesome5 name="star" size={25} color="white" />
+                            <FontAwesome5 name="star" size={22} color="white" />
                         </View>
-                        <View style={
-                            {
-                                marginLeft: 20
-                            }
-                        }>
-                            <Text style={
-                                {
-                                    fontSize: 15,
-                                    fontWeight: "500",
-                                    color: "white"
-                                }
-                            }>Watchlist Assets</Text>
-                            <Text style={
-                                {
-                                    marginTop: 15,
-                                    fontSize: 14,
-                                    color: "grey"
-                                }
-                            } onPress={() => navigation.navigate("Crypto Coins")} >Add Watchlist</Text>
+                        <View style={{ marginLeft: 20 }}>
+                            <Text style={styles.middleContainerText} onPress={() => navigation.navigate("Watchlist")}>Watchlist Assets</Text>
+                            <Text style={styles.middleContainerSubText} onPress={() => navigation.navigate("Markets")} >Add Watchlist</Text>
                         </View>
                     </View>
                 </View>
             </View>
-            <View style={
-                {
-                    marginTop: 20,
-                    marginLeft: 15
-                }
-            }>
+            <View style={styles.bottomContainer}>
                 <Pressable
                     onPress={() => Auth.signOut()}>
-                    <Text style={
-                        {
-                            marginTop: 25,
-                            fontSize: 18,
-                            fontWeight: "500",
-                            color: "#ea3943"
-                        }
-                    }>Sign Out</Text>
+                    <Text style={styles.signOutText}>Sign Out</Text>
                 </Pressable>
             </View>
-            <Pressable style={styles.buttonContainer}
-                onPress={() => navigation.navigate("Asset")}>
-                <Text style={styles.buttonText}>Add New Asset</Text>
-            </Pressable>
         </View>
     );
 }
@@ -190,18 +60,84 @@ const ProfileScreen = () => {
 export default ProfileScreen;
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-        marginTop: 50,
-        padding: 10,
-        marginVertical: 25,
-        marginHorizontal: 10,
-        alignItems: "center",
-        backgroundColor: "#4169e1",
-        borderRadius: 5
+    container: {
+        flex: 1,
+        marginTop: 10
     },
-    buttonText: {
-        fontSize: 17,
-        fontWeight: "600",
+    profileText: {
+        marginLeft: 15,
+        fontSize: 29,
+        fontWeight: "bold",
         color: "white"
+    },
+    profileIconContainer: {
+        width: 75,
+        height: 75,
+        marginTop: 20,
+        alignItems: "center",
+        alignSelf: "center",
+        justifyContent: "center",
+        backgroundColor: "#343b43",
+        borderRadius: 50
+    },
+    profileIconSubContainer: {
+        width: 65,
+        height: 65,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#2b3238",
+        borderRadius: 50
+    },
+    usernameText: {
+        fontSize: 16,
+        fontWeight: "500",
+        textAlign: "center",
+        color: "#bdc5cc"
+    },
+    assetsText: {
+        marginTop: 20,
+        fontSize: 18.5,
+        fontWeight: "500",
+        color: "white"
+    },
+    middleContainer: {
+        marginLeft: 15,
+        marginTop: 25
+    },
+    middleContainerBottomView: {
+        marginTop: 18,
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    middleContainerText: {
+        fontSize: 14.8,
+        fontWeight: "500",
+        color: "white"
+    },
+    middleContainerSubText: {
+        marginTop: 18,
+        fontSize: 13,
+        color: "#677685"
+    },
+    bottomContainer: {
+        marginTop: 20,
+        marginLeft: 15
+    },
+    borderStyle: {
+        marginTop: 20,
+        marginRight: 15,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "#8694a1"
+    },
+    signOutText: {
+        marginTop: 25,
+        fontSize: 18.5,
+        fontWeight: "600",
+        color: "#bdc5cc"
+    },
+    imageStyle: {
+        width: 70,
+        height: 70,
+        resizeMode: "contain"
     }
 });

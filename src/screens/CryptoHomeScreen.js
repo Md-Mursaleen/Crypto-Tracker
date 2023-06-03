@@ -1,6 +1,7 @@
 import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
 import React, { useState, useEffect } from "react";
 import CryptoItem from "../components/CryptoItem";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { getCryptoCoinData } from "../services/requests";
 
 const CryptoHomeScreen = () => {
@@ -30,18 +31,36 @@ const CryptoHomeScreen = () => {
     return (
         <View style={
             {
-                marginBottom: 28
+                marginBottom: 70
             }
         }>
             <View style={styles.container}>
-                <Text style={[styles.textStyle, { marginLeft: 10, fontSize: 18 }]}>Crypto Assets</Text>
+                <Text style={styles.textStyle}>Markets</Text>
+            </View>
+            <View style={styles.headerContainer}>
+                <View style={styles.headerItemContainer}>
+                    <Text style={[styles.headerTextStyle, { fontSize: 15 }]}>#</Text>
+                    <AntDesign name="caretdown" color="#5e80fc" size={12} />
+                </View>
+                <View style={styles.headerItemContainer}>
+                    <Text style={styles.headerTextStyle}>Market Cap</Text>
+                    <AntDesign name="caretdown" color="#b2bbc3" size={12} style={{ marginRight: 20 }} />
+                </View>
+                <View style={styles.headerItemContainer}>
+                    <Text style={styles.headerTextStyle}>Price(USD)</Text>
+                    <AntDesign name="caretdown" color="#b2bbc3" size={12} style={{ marginRight: 10 }} />
+                </View>
+                <View style={styles.headerItemContainer}>
+                    <Text style={styles.headerTextStyle}>24h%</Text>
+                    <AntDesign name="caretdown" color="#b2bbc3" size={12} style={{ marginRight: 8 }} />
+                </View>
             </View>
             <FlatList data={cryptoCoin} renderItem={({ item }) => (
                 <CryptoItem cryptodata={item} />
             )}
                 refreshControl={
                     <RefreshControl refreshing={loading} tintColor="white" onRefresh={refetchCryptoCoin} />
-                } />
+                } style={{ marginTop: 8 }} />
         </View>
     );
 }
@@ -56,9 +75,27 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
-    textStyle: {
-        fontSize: 15,
+    headerContainer: {
+        marginTop: 10,
+        marginHorizontal: 15,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    headerItemContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    headerTextStyle: {
+        marginRight: 5,
+        fontSize: 13.5,
         fontWeight: "500",
+        color: "#bdc5cc"
+    },
+    textStyle: {
+        marginLeft: 10,
+        fontSize: 23,
+        fontWeight: "bold",
         color: "white"
     }
 });

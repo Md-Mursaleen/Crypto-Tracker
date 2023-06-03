@@ -4,7 +4,7 @@ import React from "react";
 const CryptofilterDetail = (props) => {
     const { day, value, selectedText, setSelectedText } = props;
     return (
-        <Pressable style={[styles.container, selectedText === day && { backgroundColor: "#1e1e1e" }]}
+        <Pressable style={[styles.container, selectedText === day && { backgroundColor: "black" }]}
             onPress={() => setSelectedText(day)}>
             <Text style={{ color: selectedText === day ? "white" : "grey" }}>{value}</Text>
         </Pressable>
