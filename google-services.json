@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "226973251910",
+    "project_id": "crypto-tracker-6add9",
+    "storage_bucket": "crypto-tracker-6add9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226973251910:android:007bff4330d18e62ba4d47",
+        "android_client_info": {
+          "package_name": "com.thecrypto.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "226973251910-14u03ghkal1b98cndghdrcoke7le5dlb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thecrypto.app",
+            "certificate_hash": "9832c25996fcf43bb8a2294b240e0b05781c8b85"
+          }
+        },
+        {
+          "client_id": "226973251910-1fjmrspqv7fmun3ufbgnipnn02ctbm93.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thecrypto.app",
+            "certificate_hash": "3546b5ca612ebc2d11ea9e03779ef0264ee18278"
+          }
+        },
+        {
+          "client_id": "226973251910-r60j1kq2tk9so9bq8fvaatjem8r0tln5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByAiqoUGRxMIJ4dlRN0HZxQDWjtROEHyA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "226973251910-r5iqdjkl1q2sbp54u72oo3d682s0vbhj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

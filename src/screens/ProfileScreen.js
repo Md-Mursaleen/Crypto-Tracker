@@ -1,17 +1,25 @@
-import { View, Text, Pressable, StyleSheet, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { View, Text, Pressable, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Auth } from "aws-amplify";
+import auth from "@react-native-firebase/auth";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ProfileScreen = () => {
-    const [username, setUsername] = useState("");
     const navigation = useNavigation();
+    const [signedUser, setSignedUser] = useState();
+    const getSignedUserData = async () => {
+        const signedUserData = await AsyncStorage.getItem("SignedUserData");
+        setSignedUser(JSON.parse(signedUserData));
+    };
     useEffect(() => {
-        Auth.currentAuthenticatedUser().then((res) => setUsername(res.attributes.name));
+        getSignedUserData();
     }, []);
+    const signOutWithGoogle = async () => {
+        auth().signOut();
+        navigation.navigate("Login");
+    };
     return (
         <View style={styles.container}>
             <Text style={styles.profileText}>Profile</Text>
@@ -21,7 +29,7 @@ const ProfileScreen = () => {
                 </View>
             </View>
             <View style={{ marginTop: 10 }}>
-                <Text style={styles.usernameText}>{username}</Text>
+                <Text style={styles.usernameText}>{signedUser?.user?.displayName}</Text>
             </View>
             <View style={styles.middleContainer}>
                 <Text style={styles.assetsText}>Your Assets</Text>
@@ -49,7 +57,7 @@ const ProfileScreen = () => {
             </View>
             <View style={styles.bottomContainer}>
                 <Pressable
-                    onPress={() => Auth.signOut()}>
+                    onPress={() => signOutWithGoogle()}>
                     <Text style={styles.signOutText}>Sign Out</Text>
                 </Pressable>
             </View>
@@ -62,7 +70,8 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 10
+        marginTop: 10,
+        paddingTop: 50
     },
     profileText: {
         marginLeft: 15,
@@ -77,7 +86,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         justifyContent: "center",
-        backgroundColor: "#343b43",
+        backgroundColor: "#bdc5cc",
         borderRadius: 50
     },
     profileIconSubContainer: {
@@ -102,9 +111,10 @@ const styles = StyleSheet.create({
     },
     middleContainer: {
         marginLeft: 15,
-        marginTop: 25
+        marginTop: 30
     },
     middleContainerBottomView: {
+        marginLeft: 3,
         marginTop: 18,
         flexDirection: "row",
         alignItems: "center"
@@ -117,7 +127,8 @@ const styles = StyleSheet.create({
     middleContainerSubText: {
         marginTop: 18,
         fontSize: 13,
-        color: "#677685"
+        fontWeight: "500",
+        color: "grey"
     },
     bottomContainer: {
         marginTop: 20,
@@ -127,7 +138,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginRight: 15,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: "#8694a1"
+        borderColor: "#2b3238"
     },
     signOutText: {
         marginTop: 25,

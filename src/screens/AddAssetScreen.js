@@ -1,13 +1,13 @@
-import { Pressable, StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Platform } from "react-native";
 import React, { useEffect, useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View, KeyboardAvoidingView, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import SearchableDropdown from "react-native-searchable-dropdown";
-import { useRecoilState } from "recoil";
 import { portfolioassetsinstore } from "../atoms/PortfolioAssets";
 import { getCoins, getCryptoData } from "../services/requests";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRecoilState } from "recoil";
 import uuid from "react-native-uuid";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import SearchableDropdown from "react-native-searchable-dropdown";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AddAssetScreen = () => {
     const [coins, setCoins] = useState([]);
@@ -60,7 +60,7 @@ const AddAssetScreen = () => {
         }
     }, [selectedCoin]);
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={80} behavior={Platform.OS === "ios" ? "padding" : "height"} >
+        <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={80} behavior={Platform.OS === "ios" ? "padding" : "height"} >
             <View style={styles.headerContainer}>
                 <Ionicons name="chevron-back-sharp" size={25} color="#bdc5cc" onPress={() => navigation.goBack()} style={{ marginLeft: 10 }} />
                 <Text style={styles.headerText}>Add New Asset</Text>
@@ -102,6 +102,10 @@ const AddAssetScreen = () => {
 export default AddAssetScreen;
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 50
+    },
     headerContainer: {
         flexDirection: "row",
         alignItems: "center"

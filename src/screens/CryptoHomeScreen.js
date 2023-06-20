@@ -1,5 +1,5 @@
-import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
 import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
 import CryptoItem from "../components/CryptoItem";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { getCryptoCoinData } from "../services/requests";
@@ -29,15 +29,11 @@ const CryptoHomeScreen = () => {
         fetchCryptoCoin();
     }, []);
     return (
-        <View style={
-            {
-                marginBottom: 70
-            }
-        }>
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <View style={styles.headerContainer}>
                 <Text style={styles.textStyle}>Markets</Text>
             </View>
-            <View style={styles.headerContainer}>
+            <View style={styles.headerSubContainer}>
                 <View style={styles.headerItemContainer}>
                     <Text style={[styles.headerTextStyle, { fontSize: 15 }]}>#</Text>
                     <AntDesign name="caretdown" color="#5e80fc" size={12} />
@@ -69,13 +65,17 @@ export default CryptoHomeScreen;
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 50,
+        marginBottom: 70
+    },
+    headerContainer: {
         paddingHorizontal: 10,
         paddingBottom: 5,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
     },
-    headerContainer: {
+    headerSubContainer: {
         marginTop: 10,
         marginHorizontal: 15,
         flexDirection: "row",

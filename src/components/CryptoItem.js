@@ -1,5 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import { Image, Text, StyleSheet, View, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 const CryptoItem = ({ cryptodata }) => {
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: "#282828"
+        borderBottomColor: "#323232"
     },
     positionContainer: {
         marginRight: 5,

@@ -1,13 +1,13 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import PortfolioAssetItem from "./PortfolioAssetItem";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { portfolioassets } from "../atoms/PortfolioAssets";
 import { SwipeListView } from "react-native-swipe-list-view";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { portfolioassetsinstore } from "../atoms/PortfolioAssets";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 

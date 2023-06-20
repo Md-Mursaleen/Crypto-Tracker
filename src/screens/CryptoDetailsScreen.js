@@ -1,5 +1,5 @@
-import { View, Text, Image, StyleSheet, Dimensions, TextInput, ActivityIndicator, KeyboardAvoidingView } from "react-native";
 import React, { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet, Dimensions, TextInput, ActivityIndicator, KeyboardAvoidingView, Keyboard } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
@@ -25,6 +25,7 @@ const CryptoDetailsScreen = ({ route }) => {
     const [usdValue, setUsdValue] = useState("");
     const [selectedText, setSelectedText] = useState("1");
     const [candleChartVisible, setCandleChartVisible] = useState(true);
+    const [keyboardOpen, setKeyboardOpen] = useState(false);
     const fetchData = async () => {
         setLoading(true);
         const fetchedData = await getCryptoData(cryptoid);
@@ -118,6 +119,18 @@ const CryptoDetailsScreen = ({ route }) => {
             value: "All"
         }
     ];
+    const keyboardShowListener = Keyboard.addListener(
+        "keyboardDidShow",
+        () => {
+            setKeyboardOpen(true);
+        }
+    );
+    const keyboardHideListener = Keyboard.addListener(
+        "keyboardDidHide",
+        () => {
+            setKeyboardOpen(false);
+        }
+    );
     return (
         <KeyboardAvoidingView style={styles.container}>
             <LineChart.Provider data={prices.map(([timestamp, value]) => ({ timestamp, value }))}>
@@ -195,7 +208,7 @@ const CryptoDetailsScreen = ({ route }) => {
                     </LineChart>
                 )}
                 {!showingCandleChart && (
-                    <View style={{ marginTop: 60 }}>
+                    <View style={!keyboardOpen && { marginTop: 60 }}>
                         <Text style={styles.converterText}>Converter</Text>
                         <View style={styles.converterContainer}>
                             <View style={styles.inputContainer}>
@@ -222,7 +235,8 @@ export default CryptoDetailsScreen;
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        paddingTop: 50
     },
     headerContainer: {
         flexDirection: "row",

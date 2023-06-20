@@ -1,5 +1,5 @@
-import { Text, View, StyleSheet, Image } from "react-native";
 import React from "react";
+import { Text, View, StyleSheet, Image } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 const PortfolioAssetItem = ({ assetitem }) => {

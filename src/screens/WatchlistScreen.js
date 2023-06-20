@@ -1,8 +1,8 @@
-import { View, Text, FlatList, RefreshControl, StyleSheet, Pressable, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useWatchlist } from "../../src/contexts/WatchlistContext";
+import { View, Text, FlatList, RefreshControl, StyleSheet, Pressable } from "react-native";
 import CryptoItem from "../components/CryptoItem";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { useWatchlist } from "../../src/contexts/WatchlistContext";
 import { getWatchlistedCrypto } from "../services/requests"
 import { useNavigation } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
@@ -27,8 +27,9 @@ const WatchlistScreen = () => {
             fetchWatchlistedCrypto();
         }
     }, [cryptoId]);
+    console.log(cryptoId.length)
     return (
-        cryptoCurrency?.length === 0 ? (
+        cryptoId.length === 0 ? (
             <>
                 <View style={styles.container}>
                     <Text style={styles.textStyle}>Watchlists</Text>
@@ -49,11 +50,7 @@ const WatchlistScreen = () => {
                 </Pressable >
             </>
         ) : (
-            <View style={
-                {
-                    marginBottom: 70
-                }
-            }>
+            <View style={{ marginBottom: 70 }}>
                 <View style={styles.container}>
                     <Text style={styles.textStyle}>Watchlists</Text>
                 </View>
@@ -91,6 +88,7 @@ export default WatchlistScreen;
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 50,
         paddingHorizontal: 10,
         paddingBottom: 5,
         flexDirection: "row",
