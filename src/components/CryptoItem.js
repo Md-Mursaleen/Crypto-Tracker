@@ -27,14 +27,14 @@ const CryptoItem = ({ cryptodata }) => {
         <Pressable style={styles.cryptoContainer} onPress={() => navigation.navigate("Details", {
             cryptoid: id
         })} >
-            <Text style={styles.position}>{market_cap_rank}</Text>
+            <Text style={styles.positionTextStyle}>{market_cap_rank}</Text>
             <Image source={{ uri: image }} style={styles.imageStyle} />
             <View>
-                <Text style={styles.text}>{symbol?.toUpperCase()}</Text>
-                <Text style={styles.marketCapStyle}>{cryptoMarketcap(market_cap)}</Text>
+                <Text style={styles.textStyle}>{symbol?.toUpperCase()}</Text>
+                <Text style={styles.marketCapTextStyle}>{cryptoMarketcap(market_cap)}</Text>
             </View>
             <View style={{ marginLeft: "auto" }}>
-                <Text style={styles.title}>${current_price === 1 ? "1.00" : current_price}</Text>
+                <Text style={styles.titleTextStyle}>${current_price === 1 ? "1.00" : current_price}</Text>
             </View>
             <View style={styles.priceChangeContainer}>
                 <View style={[styles.pricePercentageContainer, { backgroundColor: pricePercentageBackground }]}>
@@ -56,35 +56,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: "#323232"
     },
-    positionContainer: {
-        marginRight: 5,
-        width: 28,
-        height: 24,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#585858",
-        borderRadius: 5
-    },
-    pricePercentageContainer: {
-        width: 65,
-        height: 26,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 10
-    },
-    title: {
-        marginBottom: 3,
-        fontSize: 14.5,
-        fontWeight: "500",
-        color: "#8694a1"
-    },
-    text: {
-        marginRight: 5,
-        fontWeight: "bold",
-        color: "white"
-    },
-    position: {
+    positionTextStyle: {
         fontSize: 14.5,
         fontWeight: "bold",
         color: "#b2bbc3"
@@ -95,8 +67,19 @@ const styles = StyleSheet.create({
         height: 27,
         width: 27
     },
-    marketCapStyle: {
+    textStyle: {
+        marginRight: 5,
+        fontWeight: "bold",
+        color: "white"
+    },
+    marketCapTextStyle: {
         fontSize: 13,
+        fontWeight: "500",
+        color: "#8694a1"
+    },
+    titleTextStyle: {
+        marginBottom: 3,
+        fontSize: 14.5,
         fontWeight: "500",
         color: "#8694a1"
     },
@@ -104,12 +87,29 @@ const styles = StyleSheet.create({
         marginLeft: "auto",
         alignItems: "flex-end"
     },
-    priceChangeText: {
-        fontSize: 13,
-        fontWeight: "500"
+    pricePercentageContainer: {
+        width: 65,
+        height: 26,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 10
     },
     iconStyle: {
         marginRight: 5,
         alignSelf: "center"
+    },
+    priceChangeText: {
+        fontSize: 13,
+        fontWeight: "500"
+    },
+    positionContainer: {
+        marginRight: 5,
+        width: 28,
+        height: 24,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#585858",
+        borderRadius: 5
     }
 });

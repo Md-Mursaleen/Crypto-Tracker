@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, RefreshControl } from "react-native";
+import { getCryptoCoinData } from "../services/requests";
 import CryptoItem from "../components/CryptoItem";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { getCryptoCoinData } from "../services/requests";
 
 const CryptoHomeScreen = () => {
     const [cryptoCoin, setCryptoCoin] = useState([]);
@@ -75,6 +75,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
+    textStyle: {
+        marginLeft: 10,
+        fontSize: 23,
+        fontWeight: "bold",
+        color: "white"
+    },
     headerSubContainer: {
         marginTop: 10,
         marginHorizontal: 15,
@@ -91,11 +97,5 @@ const styles = StyleSheet.create({
         fontSize: 13.5,
         fontWeight: "500",
         color: "#bdc5cc"
-    },
-    textStyle: {
-        marginLeft: 10,
-        fontSize: 23,
-        fontWeight: "bold",
-        color: "white"
     }
 });

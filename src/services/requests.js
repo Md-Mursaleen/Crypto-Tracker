@@ -8,17 +8,15 @@ export const getCryptoData = async (cryptoid) => {
         console.log(e);
     }
 };
-
 export const getChartData = async (cryptoid, selectedValue) => {
     try {
-        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${cryptoid}/market_chart?vs_currency=usd&days=${selectedValue}&interval=hourly`);
+        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${cryptoid}/market_chart?vs_currency=usd&days=${selectedValue}&interval=daily`);
         return response.data;
 
     } catch (e) {
         console.log(e);
     }
 };
-
 export const getCryptoCoinData = async (pagenumber = 1) => {
     try {
         const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=${pagenumber}&sparkline=false&price_change_percentage=24h&locale=en`);

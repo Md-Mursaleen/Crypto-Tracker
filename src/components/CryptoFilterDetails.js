@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, StyleSheet, Pressable } from "react-native";
 
-const CryptofilterDetail = (props) => {
+const CryptoFilterDetails = (props) => {
     const { day, value, selectedText, setSelectedText } = props;
     return (
         <Pressable style={[styles.container, selectedText === day && { backgroundColor: "black" }]}
@@ -11,7 +11,7 @@ const CryptofilterDetail = (props) => {
     );
 }
 
-export default CryptofilterDetail;
+export default CryptoFilterDetails;
 
 const styles = StyleSheet.create({
     container: {

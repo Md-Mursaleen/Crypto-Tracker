@@ -39,8 +39,8 @@ const ProfileScreen = () => {
                             <MaterialIcons name="attach-money" size={32} color="white" />
                         </View>
                         <View style={{ marginLeft: 15 }}>
-                            <Text style={styles.middleContainerText} onPress={() => navigation.navigate("Portfolio")}>Current Assets</Text>
-                            <Text style={styles.middleContainerSubText} onPress={() => navigation.navigate("Asset")}>Add Asset</Text>
+                            <Text style={styles.middleContainerTextStyle} onPress={() => navigation.navigate("Portfolio")}>Current Assets</Text>
+                            <Text style={styles.middleContainerSubTextStyle} onPress={() => navigation.navigate("Asset")}>Add Asset</Text>
                         </View>
                     </View>
                     <View style={styles.borderStyle} />
@@ -49,8 +49,8 @@ const ProfileScreen = () => {
                             <FontAwesome5 name="star" size={22} color="white" />
                         </View>
                         <View style={{ marginLeft: 20 }}>
-                            <Text style={styles.middleContainerText} onPress={() => navigation.navigate("Watchlist")}>Watchlist Assets</Text>
-                            <Text style={styles.middleContainerSubText} onPress={() => navigation.navigate("Markets")} >Add Watchlist</Text>
+                            <Text style={styles.middleContainerTextStyle} onPress={() => navigation.navigate("Watchlist")}>Watchlist Assets</Text>
+                            <Text style={styles.middleContainerSubTextStyle} onPress={() => navigation.navigate("Markets")} >Add Watchlist</Text>
                         </View>
                     </View>
                 </View>
@@ -103,15 +103,32 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#bdc5cc"
     },
+    middleContainer: {
+        marginLeft: 15,
+        marginTop: 30
+    },
     assetsText: {
         marginTop: 20,
         fontSize: 18.5,
         fontWeight: "500",
         color: "white"
     },
-    middleContainer: {
-        marginLeft: 15,
-        marginTop: 30
+    middleContainerTextStyle: {
+        fontSize: 14.8,
+        fontWeight: "500",
+        color: "white"
+    },
+    middleContainerSubTextStyle: {
+        marginTop: 18,
+        fontSize: 13,
+        fontWeight: "500",
+        color: "grey"
+    },
+    borderStyle: {
+        marginTop: 20,
+        marginRight: 15,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "#2b3238"
     },
     middleContainerBottomView: {
         marginLeft: 3,
@@ -119,26 +136,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
-    middleContainerText: {
-        fontSize: 14.8,
-        fontWeight: "500",
-        color: "white"
-    },
-    middleContainerSubText: {
-        marginTop: 18,
-        fontSize: 13,
-        fontWeight: "500",
-        color: "grey"
-    },
     bottomContainer: {
         marginTop: 20,
         marginLeft: 15
-    },
-    borderStyle: {
-        marginTop: 20,
-        marginRight: 15,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: "#2b3238"
     },
     signOutText: {
         marginTop: 25,

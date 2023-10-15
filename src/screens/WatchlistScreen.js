@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, RefreshControl, StyleSheet, Pressable } from "react-native";
-import CryptoItem from "../components/CryptoItem";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import { useWatchlist } from "../../src/contexts/WatchlistContext";
 import { getWatchlistedCrypto } from "../services/requests"
 import { useNavigation } from "@react-navigation/native";
+import CryptoItem from "../components/CryptoItem";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import LottieView from "lottie-react-native";
 
 const WatchlistScreen = () => {
@@ -40,9 +40,9 @@ const WatchlistScreen = () => {
                     loop={true}
                     style={styles.lottieStyle} />
                 <View>
-                    <Text style={styles.headerTitle}>Your watchlist is empty</Text>
-                    <Text style={[styles.headerSubTitle, { marginTop: 20 }]}>Start building your watchlist by clicking</Text>
-                    <Text style={[styles.headerSubTitle, { marginTop: 5 }]}>button below.</Text>
+                    <Text style={styles.headerTitleStyle}>Your watchlist is empty</Text>
+                    <Text style={[styles.headerSubTitleStyle, { marginTop: 20 }]}>Start building your watchlist by clicking</Text>
+                    <Text style={[styles.headerSubTitleStyle, { marginTop: 5 }]}>button below.</Text>
                 </View>
                 < Pressable style={[styles.buttonContainer, cryptoCurrency.length === 0 && { marginTop: 180 }]}
                     onPress={() => navigation.navigate("Markets")}>
@@ -95,23 +95,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
-    headerContainer: {
-        marginTop: 10,
-        marginHorizontal: 15,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between"
-    },
-    headerItemContainer: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    headerTextStyle: {
-        marginRight: 5,
-        fontSize: 13.5,
-        fontWeight: "500",
-        color: "#bdc5cc"
-    },
     textStyle: {
         marginLeft: 10,
         fontSize: 23,
@@ -124,14 +107,14 @@ const styles = StyleSheet.create({
         height: 185,
         alignSelf: "center"
     },
-    headerTitle: {
+    headerTitleStyle: {
         marginTop: 75,
         fontSize: 27,
         fontWeight: "bold",
         alignSelf: "center",
         color: "white"
     },
-    headerSubTitle: {
+    headerSubTitleStyle: {
         fontSize: 16.5,
         fontWeight: "500",
         alignSelf: "center",
@@ -149,5 +132,22 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "600",
         color: "white"
+    },
+    headerContainer: {
+        marginTop: 10,
+        marginHorizontal: 15,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between"
+    },
+    headerItemContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    headerTextStyle: {
+        marginRight: 5,
+        fontSize: 13.5,
+        fontWeight: "500",
+        color: "#bdc5cc"
     }
 });

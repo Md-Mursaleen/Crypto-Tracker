@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Dimensions, TextInput, ActivityIndicator, KeyboardAvoidingView, Keyboard } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import AntDesign from "react-native-vector-icons/AntDesign";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { LineChart } from "react-native-wagmi-charts";
 import { CandlestickChart } from "react-native-wagmi-charts";
 import { useNavigation } from "@react-navigation/native";
 import { getCryptoData, getChartData, getCandleChartData } from "../services/requests";
 import { useWatchlist } from "../../src/contexts/WatchlistContext";
-import CryptofilterDetail from "../components/CryptofilterDetail";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import CryptoFilterDetails from "../components/CryptoFilterDetails";
 
 const CryptoDetailsScreen = ({ route }) => {
     const [showingCandleChart, setShowingCandleChart] = useState(true);
@@ -136,9 +136,9 @@ const CryptoDetailsScreen = ({ route }) => {
             <LineChart.Provider data={prices.map(([timestamp, value]) => ({ timestamp, value }))}>
                 <View style={styles.headerContainer}>
                     <Ionicons name="chevron-back-sharp" size={25} color="#677686" onPress={() => navigation.goBack()} />
-                    <View style={styles.infoContainer}>
+                    <View style={styles.informationContainer}>
                         <Image source={{ uri: image.small }} style={styles.imageStyle} />
-                        <Text style={styles.text}>{symbol.toUpperCase()}</Text>
+                        <Text style={styles.textStyle}>{symbol.toUpperCase()}</Text>
                     </View>
                     <FontAwesome name={cryptoinWatchlist() ? "star" : "star-o"} size={25} color={cryptoinWatchlist() ? "#ffbf00" : "#677686"}
                         onPress={() => checkWatchlistData()} />
@@ -146,14 +146,14 @@ const CryptoDetailsScreen = ({ route }) => {
                 <View style={styles.cryptoInfoContainer}>
                     <View>
                         <View style={styles.titleContainer}>
-                            <Text style={styles.title}>{name}</Text>
+                            <Text style={styles.titleTextStyle}>{name}</Text>
                             <View style={[styles.positionContainer, market_cap_rank >= 10 && { width: 26 }, market_cap_rank >= 100 && { width: 36 }]}>
                                 <Text style={styles.positionText}>#{market_cap_rank}</Text>
                             </View>
                         </View>
                         <LineChart.PriceText
                             format={formatPrice}
-                            style={styles.priceText} />
+                            style={styles.priceTextStyle} />
                     </View>
                     <View style={[styles.percentageContainer, { backgroundColor: pricePercentage }]}>
                         <AntDesign name={price_change_percentage_24h > 0 ? "caretup" : "caretdown"} color="white" size={12} style={styles.iconContainer} />
@@ -162,7 +162,7 @@ const CryptoDetailsScreen = ({ route }) => {
                 </View>
                 <View style={styles.filterContainer}>
                     {filterValues.map((data, index) => (
-                        <CryptofilterDetail key={index} day={data.day} value={data.value} selectedText={selectedText} setSelectedText={onChangeValue} />
+                        <CryptoFilterDetails key={index} day={data.day} value={data.value} selectedText={selectedText} setSelectedText={onChangeValue} />
                     ))}
                     {!candleChartVisible ? (<MaterialIcons name="waterfall-chart" size={24} color="#16c784" onPress={() => showingCandleStickChart()} />) : (<MaterialIcons name="show-chart" size={24} color="#16c784" onPress={() => showingLineChart()} />)}
                 </View>
@@ -243,41 +243,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
-    text: {
+    informationContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    imageStyle: {
+        width: 25,
+        height: 25
+    },
+    textStyle: {
         marginHorizontal: 5,
         fontSize: 17,
-        fontWeight: "600",
-        color: "white"
-    },
-    infoContainer: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    positionText: {
-        fontSize: 13,
-        fontWeight: "bold",
-        color: "white"
-    },
-    positionContainer: {
-        width: 22,
-        height: 20,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#252b30",
-        borderRadius: 5
-    },
-    title: {
-        marginRight: 10,
-        fontSize: 15,
-        fontWeight: "600",
-        color: "white"
-    },
-    titleContainer: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    priceText: {
-        fontSize: 28,
         fontWeight: "600",
         color: "white"
     },
@@ -289,6 +265,34 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between"
     },
+    titleContainer: {
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    titleTextStyle: {
+        marginRight: 10,
+        fontSize: 15,
+        fontWeight: "600",
+        color: "white"
+    },
+    positionContainer: {
+        width: 22,
+        height: 20,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#252b30",
+        borderRadius: 5
+    },
+    positionText: {
+        fontSize: 13,
+        fontWeight: "bold",
+        color: "white"
+    },
+    priceTextStyle: {
+        fontSize: 28,
+        fontWeight: "600",
+        color: "white"
+    },
     percentageContainer: {
         paddingHorizontal: 5,
         paddingVertical: 8,
@@ -299,19 +303,6 @@ const styles = StyleSheet.create({
     percentageText: {
         fontSize: 16,
         fontWeight: "bold",
-        color: "white"
-    },
-    inputContainer: {
-        flex: 1,
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    inputField: {
-        flex: 1,
-        height: 40,
-        margin: 12,
-        padding: 5,
-        fontSize: 16,
         color: "white"
     },
     filterContainer: {
@@ -329,29 +320,13 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between"
     },
-    candlechartText: {
-        fontWeight: "700",
-        color: "white"
-    },
     candleText: {
         fontSize: 13,
         color: "grey"
     },
-    inputFieldContainer: {
-        marginLeft: 10,
-        width: 130,
-        height: 55,
-        backgroundColor: "#0f1114",
-        alignItems: "center",
-        borderRadius: 5
-    },
-    imageStyle: {
-        width: 25,
-        height: 25
-    },
-    iconContainer: {
-        marginRight: 5,
-        alignSelf: "center"
+    candlechartText: {
+        fontWeight: "700",
+        color: "white"
     },
     converterText: {
         marginLeft: 8,
@@ -363,5 +338,30 @@ const styles = StyleSheet.create({
     converterContainer: {
         marginLeft: 8,
         flexDirection: "row"
+    },
+    inputContainer: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    inputFieldContainer: {
+        marginLeft: 10,
+        width: 130,
+        height: 55,
+        backgroundColor: "#0f1114",
+        alignItems: "center",
+        borderRadius: 5
+    },
+    inputField: {
+        flex: 1,
+        height: 40,
+        margin: 12,
+        padding: 5,
+        fontSize: 16,
+        color: "white"
+    },
+    iconContainer: {
+        marginRight: 5,
+        alignSelf: "center"
     }
 });

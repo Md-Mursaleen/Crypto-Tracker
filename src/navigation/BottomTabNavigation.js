@@ -21,30 +21,10 @@ const BottomTabNavigation = () => {
                 tabBarInactiveTintColor: "#708090"
             }
         }>
-            <BottomTab.Screen name="Markets" component={CryptoHomeScreen} options={
-                {
-                    tabBarLabelStyle: styles.tabBarLabelStyle,
-                    tabBarIcon: ({ color }) => <FontAwesome5 name="bitcoin" size={22} color={color} />
-                }
-            } />
-            <BottomTab.Screen name="Portfolio" component={PortfolioScreen} options={
-                {
-                    tabBarLabelStyle: styles.tabBarLabelStyle,
-                    tabBarIcon: ({ color }) => <Feather name="pie-chart" size={22} color={color} />
-                }
-            } />
-            <BottomTab.Screen name="Watchlist" component={WatchlistScreen} options={
-                {
-                    tabBarLabelStyle: styles.tabBarLabelStyle,
-                    tabBarIcon: ({ color }) => <FontAwesome5 name="star" size={20} color={color} />
-                }
-            } />
-            <BottomTab.Screen name="Profile" component={ProfileScreen} options={
-                {
-                    tabBarLabelStyle: styles.tabBarLabelStyle,
-                    tabBarIcon: ({ color }) => <FontAwesome name="user-circle-o" size={24} color={color} />
-                }
-            } />
+            <BottomTab.Screen name="Markets" component={CryptoHomeScreen} options={{ tabBarLabelStyle: styles.tabBarLabelStyle, tabBarIcon: ({ color }) => <FontAwesome5 name="bitcoin" size={22} color={color} /> }} />
+            <BottomTab.Screen name="Portfolio" component={PortfolioScreen} options={{ tabBarLabelStyle: styles.tabBarLabelStyle, tabBarIcon: ({ color }) => <Feather name="pie-chart" size={22} color={color} /> }} />
+            <BottomTab.Screen name="Watchlist" component={WatchlistScreen} options={{ tabBarLabelStyle: styles.tabBarLabelStyle, tabBarIcon: ({ color }) => <FontAwesome5 name="star" size={20} color={color} /> }} />
+            <BottomTab.Screen name="Profile" component={ProfileScreen} options={{ tabBarLabelStyle: styles.tabBarLabelStyle, tabBarIcon: ({ color }) => <FontAwesome name="user-circle-o" size={24} color={color} /> }} />
         </BottomTab.Navigator>
     );
 }

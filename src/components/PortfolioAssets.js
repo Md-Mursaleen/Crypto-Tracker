@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import PortfolioAssetItem from "./PortfolioAssetItem";
 import { useNavigation } from "@react-navigation/native";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { portfolioassets } from "../atoms/PortfolioAssets";
@@ -8,6 +7,7 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { portfolioassetsinstore } from "../atoms/PortfolioAssets";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import PortfolioAssetItem from "./PortfolioAssetItem";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 
@@ -50,9 +50,9 @@ const PortfolioAssets = () => {
                     loop={true}
                     style={styles.lottieStyle} />
                 <View>
-                    <Text style={styles.headerTitle}>Your portfolio is empty</Text>
-                    <Text style={[styles.headerSubTitle, { marginTop: 20 }]}>Add the first asset by tapping on the</Text>
-                    <Text style={[styles.headerSubTitle, { marginTop: 5 }]}>button below.</Text>
+                    <Text style={styles.headerTitleStyle}>Your portfolio is empty</Text>
+                    <Text style={[styles.headerSubTitleStyle, { marginTop: 20 }]}>Add the first asset by tapping on the</Text>
+                    <Text style={[styles.headerSubTitleStyle, { marginTop: 5 }]}>button below.</Text>
                 </View>
                 < Pressable style={[styles.buttonContainer, assets.length === 0 && { marginTop: 180 }]}
                     onPress={() => navigation.navigate("Asset")}>
@@ -104,6 +104,43 @@ const PortfolioAssets = () => {
 export default PortfolioAssets;
 
 const styles = StyleSheet.create({
+    textStyle: {
+        marginLeft: 15,
+        fontSize: 25.5,
+        fontWeight: "bold",
+        color: "white"
+    },
+    lottieStyle: {
+        marginTop: 60,
+        height: 185,
+        alignSelf: "center"
+    },
+    headerTitleStyle: {
+        marginTop: 80,
+        fontSize: 27,
+        fontWeight: "bold",
+        alignSelf: "center",
+        color: "white"
+    },
+    headerSubTitleStyle: {
+        fontSize: 16.5,
+        fontWeight: "500",
+        alignSelf: "center",
+        color: "#8694a1"
+    },
+    buttonContainer: {
+        padding: 10,
+        marginVertical: 25,
+        marginHorizontal: 10,
+        alignItems: "center",
+        backgroundColor: "#4169e1",
+        borderRadius: 5
+    },
+    buttonText: {
+        fontSize: 16,
+        fontWeight: "600",
+        color: "white"
+    },
     balanceContainer: {
         marginTop: 15,
         marginBottom: 5,
@@ -124,12 +161,21 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         color: "white"
     },
+    changePriceText: {
+        marginTop: 3,
+        fontSize: 14.5,
+        fontWeight: "700"
+    },
     percentageChangeContainer: {
         paddingHorizontal: 5,
         paddingVertical: 8,
         flexDirection: "row",
         alignItems: "center",
         borderRadius: 10
+    },
+    iconContainer: {
+        marginRight: 5,
+        alignSelf: "center"
     },
     percentageChangeText: {
         fontSize: 17,
@@ -143,18 +189,22 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         color: "white"
     },
-    buttonContainer: {
-        padding: 10,
-        marginVertical: 25,
-        marginHorizontal: 10,
+    headerContainer: {
+        marginBottom: 10,
+        marginHorizontal: 20,
+        flexDirection: "row",
         alignItems: "center",
-        backgroundColor: "#4169e1",
-        borderRadius: 5
+        justifyContent: "space-between"
     },
-    buttonText: {
-        fontSize: 16,
-        fontWeight: "600",
-        color: "white"
+    headerTextStyle: {
+        marginRight: 5,
+        fontSize: 13,
+        fontWeight: "500",
+        color: "#bdc5cc"
+    },
+    headerItemContainer: {
+        flexDirection: "row",
+        alignItems: "center"
     },
     deleteButtonContainer: {
         flex: 1,
@@ -163,55 +213,5 @@ const styles = StyleSheet.create({
         alignItems: "flex-end",
         justifyContent: "center",
         backgroundColor: "#ea3943"
-    },
-    changePriceText: {
-        marginTop: 3,
-        fontSize: 14.5,
-        fontWeight: "700"
-    },
-    iconContainer: {
-        marginRight: 5,
-        alignSelf: "center"
-    },
-    headerContainer: {
-        marginBottom: 10,
-        marginHorizontal: 20,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between"
-    },
-    headerItemContainer: {
-        flexDirection: "row",
-        alignItems: "center"
-    },
-    headerTextStyle: {
-        marginRight: 5,
-        fontSize: 13,
-        fontWeight: "500",
-        color: "#bdc5cc"
-    },
-    textStyle: {
-        marginLeft: 15,
-        fontSize: 25.5,
-        fontWeight: "bold",
-        color: "white"
-    },
-    lottieStyle: {
-        marginTop: 60,
-        height: 185,
-        alignSelf: "center"
-    },
-    headerTitle: {
-        marginTop: 80,
-        fontSize: 27,
-        fontWeight: "bold",
-        alignSelf: "center",
-        color: "white"
-    },
-    headerSubTitle: {
-        fontSize: 16.5,
-        fontWeight: "500",
-        alignSelf: "center",
-        color: "#8694a1"
     }
 });

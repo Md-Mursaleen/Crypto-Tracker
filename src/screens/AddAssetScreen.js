@@ -60,10 +60,10 @@ const AddAssetScreen = () => {
         }
     }, [selectedCoin]);
     return (
-        <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={80} behavior={Platform.OS === "ios" ? "padding" : "height"} >
+        <KeyboardAvoidingView style={styles.container} keyboardVerticalOffset={80} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <View style={styles.headerContainer}>
                 <Ionicons name="chevron-back-sharp" size={25} color="#bdc5cc" onPress={() => navigation.goBack()} style={{ marginLeft: 10 }} />
-                <Text style={styles.headerText}>Add New Asset</Text>
+                <Text style={styles.headerTextStyle}>Add New Asset</Text>
             </View>
             <SearchableDropdown containerStyle={styles.dropdownContainer}
                 itemStyle={styles.dropdownitemContainer}
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center"
     },
-    headerText: {
+    headerTextStyle: {
         marginLeft: "28%",
         fontSize: 16.5,
         fontWeight: "600",
@@ -150,6 +150,11 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         color: "grey"
     },
+    priceStyle: {
+        fontSize: 17,
+        fontWeight: "600",
+        color: "grey"
+    },
     buttonContainer: {
         padding: 10,
         marginVertical: 25,
@@ -160,10 +165,5 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 17,
         fontWeight: "600"
-    },
-    priceStyle: {
-        fontSize: 17,
-        fontWeight: "600",
-        color: "grey"
     }
 });

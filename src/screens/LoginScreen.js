@@ -1,9 +1,9 @@
 import "expo-dev-client";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import auth from "@react-native-firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import auth from "@react-native-firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import LottieView from "lottie-react-native";
 
@@ -48,8 +48,8 @@ const LoginScreen = () => {
                 <Image source={require("../../assets/images/icon.png")} style={styles.imageStyle} />
                 <Text style={styles.headingText}>The Crypto App</Text>
             </View>
-            <Text style={styles.titleStyle}>Easily track your</Text>
-            <Text style={styles.subTitleStyle}>crypto</Text>
+            <Text style={styles.titleTextStyle}>Easily track your</Text>
+            <Text style={styles.subTitleTextStyle}>crypto</Text>
             <Text style={styles.textStyle}>Trusted by over 1 million users</Text>
             <LottieView source={require("../../assets/animations/graph-animations.json")}
                 autoPlay
@@ -76,6 +76,10 @@ const styles = StyleSheet.create({
         marginLeft: 35,
         flexDirection: "row"
     },
+    imageStyle: {
+        width: 40,
+        height: 40
+    },
     headingText: {
         marginTop: 5,
         marginLeft: 15,
@@ -83,18 +87,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "black"
     },
-    imageStyle: {
-        width: 40,
-        height: 40
-    },
-    titleStyle: {
+    titleTextStyle: {
         marginTop: 15,
         marginLeft: 30,
         fontSize: 38,
         fontWeight: "bold",
         color: "black"
     },
-    subTitleStyle: {
+    subTitleTextStyle: {
         marginTop: -5,
         marginLeft: 30,
         fontSize: 32,
@@ -107,6 +107,10 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "bold",
         color: "grey"
+    },
+    lottieStyle: {
+        marginTop: 50,
+        alignSelf: "center"
     },
     buttonContainer: {
         marginTop: 440,
@@ -121,9 +125,5 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "500",
         color: "white"
-    },
-    lottieStyle: {
-        marginTop: 50,
-        alignSelf: "center"
     }
 });
